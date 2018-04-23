@@ -84,5 +84,6 @@ def save_images():
                     handle.write(block)
                     
         img_num += 1 
-        
-save_images()
+
+if __name__ == '__main__':
+    save_images()
