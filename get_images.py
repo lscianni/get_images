@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-# Scrapes all links off a page and returns them in a list
+# Scrapes all images off a page and save them to disk
 #
-# 10/24/2017
+# 04/23/2018
 # Louis Scianni
 #
 
