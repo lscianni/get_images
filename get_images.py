@@ -5,7 +5,7 @@
 # Louis Scianni
 #
 
-import requests, os
+import requests, os #, re
 from urllib.parse import urlparse
 from lxml import html
 from sys import platform, argv
@@ -56,19 +56,20 @@ def save_images():
     # parse the url so we can split it up
     o = urlparse(url)
 
-    img_num = 0 # intialize image number
+    #img_num = 0 # intialize image number
     
     for img in get_parsed_page(url): # for each image in the images list returned by get_parsed_page
-        img_url = '%s://%s/%s' % (o.scheme, o.netloc, img) 
+        img_url = '%s://%s/%s' % (o.scheme, o.netloc, img)
         
-        header_content_value = requests.get(img_url).headers['content-type'] # get the 'content-type' header value
+        #header_content_value = requests.get(img_url).headers['content-type'] # get the 'content-type' header value
         
-        # set the file extension based on header value
-        if header_content_value == 'image/png':  
-            file_ext = '.png'
-            
-        with open("%s_img%d%s" % (o.netloc, img_num, file_ext), 'wb') as handle: # Open a file for writing
-            response = requests.get(img_url, stream=True)                        # Send get request for image path
+        #content = requests.get(img_url).headers['content-disposition']
+        #file_name = re.findall('filename=(.+)', content)
+        
+        response = requests.get(img_url, stream=True)                        # Send get request for image path
+        #print(response.headers['content-type'])
+        file_name = img_url.split('/')[-1].split('#')[0].split('?')[0]
+        with open("%s" % (file_name), 'wb') as handle: # Open a file for writing
             #print(response.headers['content-type'])
         
             if not response.ok:
@@ -83,7 +84,7 @@ def save_images():
             
                     handle.write(block)
                     
-        img_num += 1 
+        #img_num += 1 
 
 if __name__ == '__main__':
     save_images()
