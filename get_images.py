@@ -4,6 +4,7 @@
 # 04/23/2018
 # Louis Scianni
 #
+# Released under the GPL-v2
 
 import requests, os #, re
 from urllib.parse import urlparse
